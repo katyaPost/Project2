@@ -1,0 +1,35 @@
+{
+  "shoes": [
+    {
+      "name": "old skool white",
+      "price": 199.99,
+      "gender": "Men",
+      "image": "shoe_white"
+    },
+    {
+      "name": "old skool classic",
+      "price": 220.00,
+      "gender": "Men",
+      "image": "old_skool_classic"
+    },
+    {
+      "name": "old skool blue",
+      "price": 350.00,
+      "gender": "Men",
+      "image": "shoe_blue"
+    },
+    {
+      "name": "old skool classic",
+      "price": 220.00,
+      "gender": "Men",
+      "image": "old_skool_classic"
+    },
+    {
+      "name": "old skool classic",
+      "price": 220.00,
+      "gender": "Men",
+      "image": "old_skool_classic"
+    }
+
+  ]
+}

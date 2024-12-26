@@ -1,4 +1,4 @@
-package com.example.project2.screens;
+package com.example.project2.models;
 
 import java.util.ArrayList;
 import java.util.List;
