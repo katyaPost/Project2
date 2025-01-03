@@ -1,35 +1,18 @@
 {
   "shoes": [
     {
-      "name": "old skool white",
-      "price": 199.99,
-      "gender": "Men",
-      "image": "shoe_white"
+      "name": "Running Shoe",
+      "price": 120.0,
+      "gender": "Unisex",
+      "image": "old_skool_classic",
+      "colors": ["shoe_blue", "shoe_white","old_skool_classic" ]
     },
     {
-      "name": "old skool classic",
-      "price": 220.00,
+      "name": "Casual Sneaker",
+      "price": 85.0,
       "gender": "Men",
-      "image": "old_skool_classic"
-    },
-    {
-      "name": "old skool blue",
-      "price": 350.00,
-      "gender": "Men",
-      "image": "shoe_blue"
-    },
-    {
-      "name": "old skool classic",
-      "price": 220.00,
-      "gender": "Men",
-      "image": "old_skool_classic"
-    },
-    {
-      "name": "old skool classic",
-      "price": 220.00,
-      "gender": "Men",
-      "image": "old_skool_classic"
+      "image": "shoe_image2",
+      "colors": ["shoe_color4", "shoe_color5"]
     }
-
   ]
 }

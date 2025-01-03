@@ -1,8 +1,6 @@
 package com.example.project2.screens;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -82,11 +80,20 @@ public class ShoesActivity extends AppCompatActivity {
                 String gender = shoeObject.getString("gender");
                 String imageName = shoeObject.getString("image");
 
+                // קריאת רשימת הצבעים
+                JSONArray colorsArray = shoeObject.getJSONArray("colors");
+                List<Integer> colorOptions = new ArrayList<>();
+                for (int j = 0; j < colorsArray.length(); j++) {
+                    String colorName = colorsArray.getString(j);
+                    int colorResId = getResources().getIdentifier(colorName, "drawable", getPackageName());
+                    colorOptions.add(colorResId);
+                }
+
                 // המרה לשם התמונה שנמצא ב-res/drawable
                 int imageResId = getResources().getIdentifier(imageName, "drawable", getPackageName());
 
                 // יוצרים אובייקט של Shoe ומוסיפים לרשימה
-                Shoe shoe = new Shoe(name, price, gender, imageResId);
+                Shoe shoe = new Shoe(name, price, gender, imageResId, colorOptions);
                 shoesList.add(shoe);
             }
         } catch (Exception e) {
