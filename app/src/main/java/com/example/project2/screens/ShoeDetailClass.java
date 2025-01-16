@@ -1,4 +1,4 @@
-package com.example.project2.models;
+package com.example.project2.screens;
 
 import android.os.Bundle;
 import android.view.View;

@@ -1,8 +1,12 @@
 package com.example.project2.screens;
 
 import android.os.Bundle;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,12 +16,15 @@ import com.example.project2.R;
 import com.example.project2.adapters.ColorsAdapter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class ShoeDetails extends AppCompatActivity {
 
     private ImageView shoeImage;
     private RecyclerView colorsRecyclerView;
     private ColorsAdapter colorsAdapter;
+    private Spinner sizeSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +35,7 @@ public class ShoeDetails extends AppCompatActivity {
         TextView shoeName = findViewById(R.id.shoe_detail_name);
         TextView shoePrice = findViewById(R.id.shoe_detail_price);
         colorsRecyclerView = findViewById(R.id.additional_colors_recyclerview);
+        sizeSpinner = findViewById(R.id.shoe_size_spinner);
 
         // קבלת נתונים מה-Intent
         String name = getIntent().getStringExtra("shoe_name");
@@ -48,5 +56,34 @@ public class ShoeDetails extends AppCompatActivity {
 
         colorsRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         colorsRecyclerView.setAdapter(colorsAdapter);
+
+        // הגדרת Spinner עם רשימת המידות
+        setupSizeSpinner();
+    }
+
+    private void setupSizeSpinner() {
+        // רשימת מידות לדוגמה
+        List<String> sizes = Arrays.asList("Select Size", "35", "36", "37", "38", "39", "40", "41", "42", "43");
+
+        // יצירת ArrayAdapter עבור Spinner
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, sizes);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sizeSpinner.setAdapter(adapter);
+
+        // Listener לבחירת מידה
+        sizeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, android.view.View view, int position, long id) {
+                String selectedSize = parent.getItemAtPosition(position).toString();
+                if (!selectedSize.equals("Select Size")) {
+                    Toast.makeText(ShoeDetails.this, "Selected size: " + selectedSize, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // פעולה במקרה שלא נבחר דבר
+            }
+        });
     }
 }

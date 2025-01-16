@@ -5,7 +5,8 @@ import java.util.List;
 
 public class Cart {
 
-    // רשימה של מוצרים בעגלה
+    protected String id;
+
     private List<String> items;
     private List<String> prices;
     private List<Integer> images;
@@ -16,33 +17,42 @@ public class Cart {
         images = new ArrayList<>();
     }
 
-    // הוספת מוצר לעגלה
-    public void addItem(String item, String price) {
+    // עדכון הפונקציה כך שתוכל לקבל את ה-Image ID
+    public void addItem(String id, String item, String price, int imageResId) {
         items.add(item);
         prices.add(price);
-
+        images.add(imageResId); // שמירת ה-Image ID בעגלה
     }
 
-    // הצגת המוצרים בעגלה
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public List<String> getItems() {
         return items;
+    }
+
+    public void setItems(List<String> items) {
+        this.items = items;
     }
 
     public List<String> getPrices() {
         return prices;
     }
 
+    public void setPrices(List<String> prices) {
+        this.prices = prices;
+    }
+
     public List<Integer> getImages() {
         return images;
     }
 
-    // הצגת סיכום של המוצרים בעגלה
-    public String getCartSummary() {
-        if (items.isEmpty()) {
-            return "העגלה ריקה";
-        } else {
-            return "העגלה מכילה: " + String.join(", ", items);
-        }
+    public void setImages(List<Integer> images) {
+        this.images = images;
     }
 }
-

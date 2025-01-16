@@ -1,91 +1,60 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".screens.AddToCartActivity">
-    <!-- שם הנעל -->
+    android:layout_height="match_parent">
 
-
-    <!-- כפתור הוסף לעגלה -->
-    <TextView
-        android:id="@+id/shoe_name"
-        android:layout_width="268dp"
-        android:layout_height="0dp"
-        android:gravity="center"
-        android:text="OLD SKOOL"
-        android:textColor="#9B4444"
-        android:textSize="50dp"
-        android:textStyle="bold"
-        tools:layout_editor_absoluteX="72dp"
-        tools:layout_editor_absoluteY="44dp" />
-
-
-    <TextView
-        android:id="@+id/shoe_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="₪349.90"
-        android:textColor="#CF2E2E"
-        android:textSize="25dp"
-        tools:layout_editor_absoluteX="157dp"
-        tools:layout_editor_absoluteY="182dp" />
-
-    <Button
-        android:id="@+id/add_to_cart_button"
-        android:layout_width="179dp"
-        android:layout_height="75dp"
-        android:backgroundTint="#C68484"
-        android:text="ADD TO CART"
-        android:textSize="22dp"
-        android:textStyle="bold"
-        tools:layout_editor_absoluteX="116dp"
-        tools:layout_editor_absoluteY="612dp" />
-
-    <ImageView
-        android:id="@+id/shoe_image"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:src="@drawable/old_skool_classic"
-        tools:layout_editor_absoluteX="127dp"
-        tools:layout_editor_absoluteY="276dp" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="169dp"
-        android:layout_height="0dp"
-        android:text="מגדר: נשים, גברים"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        tools:layout_editor_absoluteX="157dp"
-        tools:layout_editor_absoluteY="233dp" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="בחר צבע"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        tools:layout_editor_absoluteX="245dp"
-        tools:layout_editor_absoluteY="489dp" />
-
-    <ImageView
-        android:id="@+id/imageView3"
+    <!-- Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        tools:layout_editor_absoluteX="178dp"
-        tools:layout_editor_absoluteY="533dp"
-        tools:srcCompat="@tools:sample/avatars" />
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        app:title="Shoe Details"
+        app:titleTextColor="@android:color/white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="0dp"
+    <!-- תוכן הדף -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        tools:layout_editor_absoluteX="72dp"
-        tools:layout_editor_absoluteY="534dp"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- שם הנעל -->
+        <TextView
+            android:id="@+id/shoe_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Old Skool"
+            android:textSize="18sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin="16dp" />
+
+        <!-- מחיר הנעל -->
+        <TextView
+            android:id="@+id/shoe_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="₪349.90"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/shoe_name"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin="16dp" />
+
+        <!-- כפתור הוספה לעגלה -->
+        <Button
+            android:id="@+id/add_to_cart_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add to Cart"
+            app:layout_constraintTop_toBottomOf="@id/shoe_price"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin="16dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -49,7 +49,7 @@ public class ShoesAdapter extends RecyclerView.Adapter<ShoesAdapter.ShoeViewHold
             intent.putExtra("shoe_name", shoe.getName());
             intent.putExtra("shoe_price", shoe.getPrice());
             intent.putExtra("shoe_image", shoe.getImageResId());
-            intent.putIntegerArrayListExtra("shoe_colors", new ArrayList<>(shoe.getColorOptions()));
+//            intent.putIntegerArrayListExtra("shoe_colors", new ArrayList<>(shoe.getColorOptions()));
             context.startActivity(intent);
         });
     }

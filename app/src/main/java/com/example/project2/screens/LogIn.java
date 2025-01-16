@@ -9,28 +9,17 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.project2.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class LogIn extends AppCompatActivity implements View.OnClickListener {
     EditText etEmail, etPassword;
     Button btnLog;
     String email, pass;
-    FirebaseDatabase database;
-    DatabaseReference myRef;
-    private FirebaseAuth mAuth;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,58 +32,35 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
             return insets;
         });
         initviews();
-
-        
     }
 
     private void initviews() {
-        etEmail= findViewById(R.id.etEmailLog);
-        etPassword= findViewById(R.id.etPassLog);
+        etEmail = findViewById(R.id.etEmailLog);
+        etPassword = findViewById(R.id.etPassLog);
         btnLog = findViewById(R.id.btnLogin);
         btnLog.setOnClickListener(this);
-        mAuth = FirebaseAuth.getInstance();
-        database=FirebaseDatabase.getInstance();
-        myRef=database.getReference("Users");
-
     }
 
     @Override
     public void onClick(View v) {
-        email = etEmail.getText().toString();
-        pass = etPassword.getText().toString();
-        mAuth.signInWithEmailAndPassword(email,pass)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull com.google.android.gms.tasks.Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d("TAG", "signInWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            final String userUid = user.getUid();
+        email = etEmail.getText().toString().trim();
+        pass = etPassword.getText().toString().trim();
 
+        // לוודא שהמייל והסיסמה לא ריקים
+        if (email.isEmpty() || pass.isEmpty()) {
+            Toast.makeText(this, "Please enter both email and password", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-                            Intent go = new Intent(getApplicationContext(), MainActivity.class);
-                            startActivity(go);
-                        }
-
-
-
-
-                        else {
-
-//                                // If sign in fails, display a message to the user.
-                            Log.w("TAG", "signInWithEmail:failure", task.getException());
-                            Toast.makeText(getApplicationContext(), "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-//                                updateUI(null);
-                        }
-
-                        // ...
-                    }
-                });
-
+        // כאן תוכל להוסיף את הקוד כדי לבדוק את הנתונים עם מערכת אחרת (כגון שרת)
+        // לדוגמה, אם המייל והסיסמה נכונים, נעבור למסך הבא
+        if (email.equals("user@example.com") && pass.equals("password123")) {
+            Log.d("TAG", "Login success");
+            Intent go = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(go);
+        } else {
+            Log.w("TAG", "Login failed");
+            Toast.makeText(getApplicationContext(), "Authentication failed.", Toast.LENGTH_SHORT).show();
+        }
     }
-
-
-
 }
