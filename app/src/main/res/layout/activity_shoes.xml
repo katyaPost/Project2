@@ -4,33 +4,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="#BCCCDC"
     tools:context=".screens.ShoesActivity">
 
     <!-- כותרת למסך -->
+
+    <!-- RecyclerView עבור הצגת הנעליים -->
+
     <TextView
         android:id="@+id/shoesTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="Shoes Store"
-        android:textSize="24sp"
         android:textColor="@color/black"
-        android:layout_margin="16dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/shoesRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
-        android:gravity="center"/>
+        app:layout_constraintHorizontal_bias="0.463"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.153" />
 
-    <!-- RecyclerView עבור הצגת הנעליים -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/shoesRecyclerView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:padding="8dp"
+        android:layout_width="418dp"
+        android:layout_height="586dp"
         android:clipToPadding="false"
-        app:layout_constraintTop_toBottomOf="@id/shoesTitle"
-        app:layout_constraintStart_toStartOf="parent"
+        android:padding="8dp"
+        tools:layout_editor_absoluteY="130dp" />
+
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="15dp"
+        android:backgroundTint="#2A3663"
+        android:text="ADD SHOE"
+        app:layout_constraintBottom_toTopOf="@+id/shoesRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/shoesTitle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

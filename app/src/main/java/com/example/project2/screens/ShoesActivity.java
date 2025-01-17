@@ -32,14 +32,6 @@ public class ShoesActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.shoesRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // קריאה לקובץ JSON מתוך תיקיית assets
-//        String json = loadJSONFromAssets();
-//
-//        // אם קובץ ה-JSON לא ריק, נפענח אותו
-//        if (json != null) {
-//            parseJSON(json);
-//        }
-
         // הגדרת ה-Adapter עם רשימת הנעליים
         shoesAdapter = new ShoesAdapter(this, shoesList);
         recyclerView.setAdapter(shoesAdapter);

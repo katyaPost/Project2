@@ -9,12 +9,14 @@ public class Shoe {
     private String name;
     private double price;
     private String gender;
-    private Map<String, String> colorOptions; // רשימה של צבעים -> תמונות
+    private List<ShoeColor> colorOptions;
 
     public Shoe() {
     }
 
-    public Shoe(String id, String name, double price, String gender, Map<String, String> colorOptions) {
+
+    public Shoe(String id, String name, double price, String gender, List<ShoeColor> colorOptions) {
+        this.id = id;
         this.name = name;
         this.price = price;
         this.gender = gender;
@@ -53,12 +55,11 @@ public class Shoe {
         this.gender = gender;
     }
 
-
-    public Map<String, String> getColorOptions() {
+    public List<ShoeColor> getColorOptions() {
         return colorOptions;
     }
 
-    public void setColorOptions(Map<String, String> colorOptions) {
+    public void setColorOptions(List<ShoeColor> colorOptions) {
         this.colorOptions = colorOptions;
     }
 

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.project2.R;
 import com.example.project2.models.Shoe;
 import com.example.project2.screens.ShoeDetails;
+import com.example.project2.utils.ImageUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,17 +42,17 @@ public class ShoesAdapter extends RecyclerView.Adapter<ShoesAdapter.ShoeViewHold
 
         holder.shoeName.setText(shoe.getName());
         holder.shoePrice.setText("$" + shoe.getPrice());
-        holder.shoeImage.setImageResource(shoe.getImageResId());
+        holder.shoeImage.setImageBitmap(ImageUtil.convertFrom64base(shoe.getColorOptions().get(0).getPicBase64()));
 
-        // לחיצה על פריט הנעל
-        holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, ShoeDetails.class);
-            intent.putExtra("shoe_name", shoe.getName());
-            intent.putExtra("shoe_price", shoe.getPrice());
-            intent.putExtra("shoe_image", shoe.getImageResId());
-//            intent.putIntegerArrayListExtra("shoe_colors", new ArrayList<>(shoe.getColorOptions()));
-            context.startActivity(intent);
-        });
+//        // לחיצה על פריט הנעל
+//        holder.itemView.setOnClickListener(v -> {
+//            Intent intent = new Intent(context, ShoeDetails.class);
+//            intent.putExtra("shoe_name", shoe.getName());
+//            intent.putExtra("shoe_price", shoe.getPrice());
+//            intent.putExtra("shoe_image", shoe.getImageResId());
+////            intent.putIntegerArrayListExtra("shoe_colors", new ArrayList<>(shoe.getColorOptions()));
+//            context.startActivity(intent);
+//        });
     }
 
     @Override

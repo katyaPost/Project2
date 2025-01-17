@@ -7,6 +7,8 @@ import com.example.project2.models.Cart;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import com.google.gson.Gson;
+
 
 public class SharedPreferencesUtil {
 
@@ -16,27 +18,17 @@ public class SharedPreferencesUtil {
     public static void saveCart(Context context, Cart cart) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        try {
-            JSONObject cartJson = cart.toJson();
-            editor.putString(CART_KEY, cartJson.toString());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        Gson gson=new Gson();
+        editor.putString(CART_KEY, gson.toJson(cart));
         editor.apply();
     }
 
     public static Cart loadCart(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-        String cartString = sharedPreferences.getString(CART_KEY, null);
-        if (cartString != null) {
-            try {
-                JSONObject cartJson = new JSONObject(cartString);
-                return Cart.fromJson(cartJson);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        return new Cart();
+        String cartJsonString = sharedPreferences.getString(CART_KEY, null);
+        if (cartJsonString == null) return null;
+        Gson gson=new Gson();
+        return gson.fromJson(cartJsonString, Cart.class);
     }
 
     public static void clearCart(Context context) {
