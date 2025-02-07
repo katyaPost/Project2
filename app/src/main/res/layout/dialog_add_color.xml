@@ -11,13 +11,13 @@
         android:hint="Enter color name"
         android:inputType="text" />
 
-    <EditText
-        android:id="@+id/base64EditText"
+    <ImageView
+        android:id="@+id/shoeImageView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter Base64 image string"
-        android:inputType="textMultiLine"
-        android:layout_marginTop="8dp" />
+        android:layout_height="200dp"
+        android:layout_marginTop="8dp"
+        android:scaleType="centerCrop"
+        android:background="@android:color/darker_gray" />
 
     <Button
         android:id="@+id/addColorButton"

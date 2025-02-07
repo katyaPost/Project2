@@ -14,6 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project2.R;
 import com.example.project2.adapters.ColorsAdapter;
+import com.example.project2.models.Shoe;
+import com.example.project2.models.ShoeColor;
+import com.example.project2.services.DatabaseService;
+import com.example.project2.utils.ImageUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,15 +25,20 @@ import java.util.List;
 
 public class ShoeDetails extends AppCompatActivity {
 
+    String shoeId;
     private ImageView shoeImage;
     private RecyclerView colorsRecyclerView;
     private ColorsAdapter colorsAdapter;
     private Spinner sizeSpinner;
 
+    DatabaseService databaseService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shoe_details);
+
+        databaseService = DatabaseService.getInstance();
 
         shoeImage = findViewById(R.id.shoe_detail_image);
         TextView shoeName = findViewById(R.id.shoe_detail_name);
@@ -38,24 +47,44 @@ public class ShoeDetails extends AppCompatActivity {
         sizeSpinner = findViewById(R.id.shoe_size_spinner);
 
         // קבלת נתונים מה-Intent
-        String name = getIntent().getStringExtra("shoe_name");
-        double price = getIntent().getDoubleExtra("shoe_price", 0);
-        int imageResId = getIntent().getIntExtra("shoe_image", 0);
-        ArrayList<Integer> colorOptions = getIntent().getIntegerArrayListExtra("shoe_colors");
+        shoeId = getIntent().getStringExtra("shoe_id");
+        if (shoeId == null) {
+            finish();
+            return;
+        }
 
-        // הצגת נתוני הנעל
-        shoeName.setText(name);
-        shoePrice.setText("$" + price);
-        shoeImage.setImageResource(imageResId);
+        databaseService.getShoe(shoeId, new DatabaseService.DatabaseCallback<Shoe>() {
+            @Override
+            public void onCompleted(Shoe shoe) {
+                // הצגת נתוני הנעל
+                shoeName.setText(shoe.getName());
+                shoePrice.setText("$" + shoe.getPrice());
+                shoeImage.setImageBitmap(ImageUtil.convertFrom64base(
+                        shoe.getColorOptions().get(0).getPicBase64()));
 
-        // הגדרת RecyclerView להצגת הצבעים הנוספים
-        colorsAdapter = new ColorsAdapter(this, colorOptions, selectedColor -> {
-            // שינוי התמונה הראשית לפי הצבע שנבחר
-            shoeImage.setImageResource(selectedColor);
+                List<ShoeColor> colorOptions = shoe.getColorOptions();
+
+//                // הגדרת RecyclerView להצגת הצבעים הנוספים
+//                colorsAdapter = new ColorsAdapter(this, colorOptions, selectedColor -> {
+//                    // שינוי התמונה הראשית לפי הצבע שנבחר
+//                    shoeImage.setImageResource(selectedColor);
+//                });
+//
+//                colorsRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+//                colorsRecyclerView.setAdapter(colorsAdapter);
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+
+            }
         });
 
-        colorsRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        colorsRecyclerView.setAdapter(colorsAdapter);
+
+
+
+
+
 
         // הגדרת Spinner עם רשימת המידות
         setupSizeSpinner();

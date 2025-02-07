@@ -53,7 +53,7 @@
         android:layout_marginHorizontal="16dp"
         android:backgroundTint="#133E87"
         android:ems="10"
-        android:inputType="number"
+        android:inputType="number|numberDecimal"
         android:textColor="#133E87"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -72,7 +72,7 @@
         app:layout_constraintTop_toBottomOf="@+id/etPrice" />
 
     <RadioGroup
-        android:id="@+id/radioGroup"
+        android:id="@+id/radioGroupGender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="13dp"
@@ -125,7 +125,8 @@
         app:layout_constraintHorizontal_bias="0.847"
         app:layout_constraintStart_toEndOf="@+id/radioGroup"
         app:layout_constraintTop_toBottomOf="@+id/tv3"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="1.0"
+        tools:listitem="@layout/item_shoe_color" />
 
     <Button
         android:id="@+id/btnPlus"

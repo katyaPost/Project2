@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project2.R;
 import com.example.project2.models.ShoeColor;
+import com.example.project2.utils.ImageUtil;
 
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class ShoeColorAdapter extends RecyclerView.Adapter<ShoeColorAdapter.View
         ShoeColor shoeColor = shoeColorList.get(position);
         holder.colorNameTextView.setText(shoeColor.getColorName());
         // For simplicity, skipping decoding and showing base64 string
-        holder.base64TextView.setText(shoeColor.getPicBase64());
+        holder.colorImageView.setImageBitmap(ImageUtil.convertFrom64base(shoeColor.getPicBase64()));
     }
 
     @Override
@@ -42,12 +43,13 @@ public class ShoeColorAdapter extends RecyclerView.Adapter<ShoeColorAdapter.View
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView colorNameTextView, base64TextView;
+        TextView colorNameTextView;
+        ImageView colorImageView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            colorNameTextView = itemView.findViewById(R.id.colorNameEditText);
-            base64TextView = itemView.findViewById(R.id.textView);
+            colorNameTextView = itemView.findViewById(R.id.colorNameTextView);
+            colorImageView = itemView.findViewById(R.id.colorimageView);
         }
     }
 }

@@ -45,14 +45,11 @@ public class ShoesAdapter extends RecyclerView.Adapter<ShoesAdapter.ShoeViewHold
         holder.shoeImage.setImageBitmap(ImageUtil.convertFrom64base(shoe.getColorOptions().get(0).getPicBase64()));
 
 //        // לחיצה על פריט הנעל
-//        holder.itemView.setOnClickListener(v -> {
-//            Intent intent = new Intent(context, ShoeDetails.class);
-//            intent.putExtra("shoe_name", shoe.getName());
-//            intent.putExtra("shoe_price", shoe.getPrice());
-//            intent.putExtra("shoe_image", shoe.getImageResId());
-////            intent.putIntegerArrayListExtra("shoe_colors", new ArrayList<>(shoe.getColorOptions()));
-//            context.startActivity(intent);
-//        });
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, ShoeDetails.class);
+            intent.putExtra("shoe_id", shoe.getId());
+            context.startActivity(intent);
+        });
     }
 
     @Override

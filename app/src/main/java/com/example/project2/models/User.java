@@ -15,14 +15,6 @@ public class User {
         this.email = email;
         this.password = password;
     }
-    public User(String id, String fName, String lName, String phone, String email) {
-        this.id = id;
-        this.fName = fName;
-        this.lName = lName;
-        this.phone = phone;
-        this.email = email;
-
-    }
 
     public String getId() {
         return id;
