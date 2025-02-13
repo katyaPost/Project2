@@ -5,55 +5,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Cart implements Serializable {
+    private static Cart instance;
+    private List<CartItem> items;
 
-    protected String id;
-
-    private List<String> items;
-    private List<String> prices;
-    private List<Integer> images;
-
-    public Cart() {
+    private Cart() {
         items = new ArrayList<>();
-        prices = new ArrayList<>();
-        images = new ArrayList<>();
     }
 
-    // עדכון הפונקציה כך שתוכל לקבל את ה-Image ID
-    public void addItem(String id, String item, String price, int imageResId) {
+    public static Cart getInstance() {
+        if (instance == null) {
+            instance = new Cart();
+        }
+        return instance;
+    }
+
+    public void addItem(CartItem item) {
         items.add(item);
-        prices.add(price);
-        images.add(imageResId); // שמירת ה-Image ID בעגלה
     }
 
-    public String getId() {
-        return id;
+    public void removeItem(CartItem item) {
+        items.remove(item);
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public List<String> getItems() {
+    public List<CartItem> getItems() {
         return items;
     }
 
-    public void setItems(List<String> items) {
-        this.items = items;
-    }
-
-    public List<String> getPrices() {
-        return prices;
-    }
-
-    public void setPrices(List<String> prices) {
-        this.prices = prices;
-    }
-
-    public List<Integer> getImages() {
-        return images;
-    }
-
-    public void setImages(List<Integer> images) {
-        this.images = images;
+    public void clearCart() {
+        items.clear();
     }
 }

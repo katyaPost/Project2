@@ -13,6 +13,7 @@ public class ShoeColor {
         this.picBase64 = picBase64;
     }
 
+
     public String getColorName() {
         return colorName;
     }

@@ -3,6 +3,7 @@ package com.example.project2.screens;
 import android.os.Bundle;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -14,24 +15,29 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project2.R;
 import com.example.project2.adapters.ColorsAdapter;
+import com.example.project2.models.Cart;
+import com.example.project2.models.CartItem;
 import com.example.project2.models.Shoe;
 import com.example.project2.models.ShoeColor;
 import com.example.project2.services.DatabaseService;
 import com.example.project2.utils.ImageUtil;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class ShoeDetails extends AppCompatActivity {
 
-    String shoeId;
+    private String shoeId;
+    private Shoe currentShoe;
+    private ShoeColor selectedColor;
+
     private ImageView shoeImage;
     private RecyclerView colorsRecyclerView;
     private ColorsAdapter colorsAdapter;
     private Spinner sizeSpinner;
+    private Button addToCartButton;
 
-    DatabaseService databaseService;
+    private DatabaseService databaseService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +51,8 @@ public class ShoeDetails extends AppCompatActivity {
         TextView shoePrice = findViewById(R.id.shoe_detail_price);
         colorsRecyclerView = findViewById(R.id.additional_colors_recyclerview);
         sizeSpinner = findViewById(R.id.shoe_size_spinner);
+        addToCartButton = findViewById(R.id.add_to_cart_button);
 
-        // קבלת נתונים מה-Intent
         shoeId = getIntent().getStringExtra("shoe_id");
         if (shoeId == null) {
             finish();
@@ -56,63 +62,69 @@ public class ShoeDetails extends AppCompatActivity {
         databaseService.getShoe(shoeId, new DatabaseService.DatabaseCallback<Shoe>() {
             @Override
             public void onCompleted(Shoe shoe) {
-                // הצגת נתוני הנעל
+                currentShoe = shoe;
                 shoeName.setText(shoe.getName());
                 shoePrice.setText("$" + shoe.getPrice());
-                shoeImage.setImageBitmap(ImageUtil.convertFrom64base(
-                        shoe.getColorOptions().get(0).getPicBase64()));
 
-                List<ShoeColor> colorOptions = shoe.getColorOptions();
+                if (!shoe.getColorOptions().isEmpty()) {
+                    selectedColor = shoe.getColorOptions().get(0); // צבע ברירת מחדל
+                    shoeImage.setImageBitmap(ImageUtil.convertFrom64base(selectedColor.getPicBase64()));
+                }
 
-//                // הגדרת RecyclerView להצגת הצבעים הנוספים
-//                colorsAdapter = new ColorsAdapter(this, colorOptions, selectedColor -> {
-//                    // שינוי התמונה הראשית לפי הצבע שנבחר
-//                    shoeImage.setImageResource(selectedColor);
-//                });
-//
-//                colorsRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-//                colorsRecyclerView.setAdapter(colorsAdapter);
+                colorsAdapter = new ColorsAdapter(ShoeDetails.this, shoe.getColorOptions(), shoeColor -> {
+                    selectedColor = shoeColor;
+                    shoeImage.setImageBitmap(ImageUtil.convertFrom64base(shoeColor.getPicBase64()));
+                });
+
+                colorsRecyclerView.setLayoutManager(new LinearLayoutManager(ShoeDetails.this, LinearLayoutManager.HORIZONTAL, false));
+                colorsRecyclerView.setAdapter(colorsAdapter);
             }
 
             @Override
             public void onFailed(Exception e) {
-
+                Toast.makeText(ShoeDetails.this, "Failed to load shoe details", Toast.LENGTH_SHORT).show();
             }
         });
 
-
-
-
-
-
-
-        // הגדרת Spinner עם רשימת המידות
         setupSizeSpinner();
+        setupAddToCartButton();
     }
 
     private void setupSizeSpinner() {
-        // רשימת מידות לדוגמה
         List<String> sizes = Arrays.asList("Select Size", "35", "36", "37", "38", "39", "40", "41", "42", "43");
 
-        // יצירת ArrayAdapter עבור Spinner
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, sizes);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sizeSpinner.setAdapter(adapter);
+    }
 
-        // Listener לבחירת מידה
-        sizeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, android.view.View view, int position, long id) {
-                String selectedSize = parent.getItemAtPosition(position).toString();
-                if (!selectedSize.equals("Select Size")) {
-                    Toast.makeText(ShoeDetails.this, "Selected size: " + selectedSize, Toast.LENGTH_SHORT).show();
-                }
+    private void setupAddToCartButton() {
+        addToCartButton.setOnClickListener(v -> {
+            if (currentShoe == null) {
+                Toast.makeText(this, "Error: Shoe details not loaded", Toast.LENGTH_SHORT).show();
+                return;
             }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // פעולה במקרה שלא נבחר דבר
+            int selectedPosition = sizeSpinner.getSelectedItemPosition();
+            if (selectedPosition == 0) {
+                Toast.makeText(this, "Please select a size", Toast.LENGTH_SHORT).show();
+                return;
             }
+
+            if (selectedColor == null) {
+                Toast.makeText(this, "Please select a color", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            String selectedSize = sizeSpinner.getSelectedItem().toString();
+            CartItem cartItem = new CartItem(
+                    currentShoe,
+                    selectedSize,
+                    selectedColor
+            );
+
+            Cart.getInstance().addItem(cartItem);
+            Toast.makeText(this, "Added to cart", Toast.LENGTH_SHORT).show();
         });
     }
 }

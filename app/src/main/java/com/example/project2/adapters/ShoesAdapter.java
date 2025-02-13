@@ -52,6 +52,7 @@ public class ShoesAdapter extends RecyclerView.Adapter<ShoesAdapter.ShoeViewHold
         });
     }
 
+
     @Override
     public int getItemCount() {
         return shoesList.size();

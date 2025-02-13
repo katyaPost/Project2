@@ -30,7 +30,6 @@
         android:id="@+id/shoesRecyclerView"
         android:layout_width="418dp"
         android:layout_height="586dp"
-        android:clipToPadding="false"
         android:padding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,5 +46,16 @@
         app:layout_constraintEnd_toEndOf="@+id/shoesTitle"
         app:layout_constraintStart_toStartOf="@+id/shoesTitle"
         app:layout_constraintTop_toBottomOf="@+id/shoesTitle" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="#00FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/shopping_cart" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

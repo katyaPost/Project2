@@ -51,11 +51,12 @@
         android:id="@+id/additional_colors_recyclerview"
         android:layout_width="0dp"
         android:layout_height="100dp"
+        android:layout_marginTop="16dp"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/shoe_detail_price"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/shoe_detail_price"
+        tools:listitem="@layout/item_color" />
 
     <!-- Spinner -->
     <Spinner
@@ -67,7 +68,7 @@
         android:importantForAccessibility="yes"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/additional_colors_recyclerview" /> <!-- נגישות טובה יותר -->
+        app:layout_constraintTop_toBottomOf="@id/additional_colors_recyclerview" />
 
     <!-- כפתור "הוסף לעגלה" -->
     <Button
@@ -79,8 +80,19 @@
         android:text="Add to Cart"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/shoe_size_spinner" /> <!-- מספק את הקשר הנכון -->
+        app:layout_constraintTop_toBottomOf="@id/shoe_size_spinner" />
+
+    <!-- תצוגת מספר הפריטים בעגלה -->
+    <TextView
+        android:id="@+id/cart_item_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cart: 0"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/add_to_cart_button"
+        android:layout_marginTop="8dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
