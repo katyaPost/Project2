@@ -7,6 +7,9 @@ import java.util.List;
 public class Cart implements Serializable {
     private static Cart instance;
     private List<CartItem> items;
+    private String id;
+
+
 
     private Cart() {
         items = new ArrayList<>();
@@ -17,6 +20,21 @@ public class Cart implements Serializable {
             instance = new Cart();
         }
         return instance;
+    }
+    public static void setInstance(Cart instance) {
+        Cart.instance = instance;
+    }
+
+    public void setItems(List<CartItem> items) {
+        this.items = items;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public void addItem(CartItem item) {

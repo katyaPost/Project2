@@ -116,12 +116,8 @@ public class ShoeDetails extends AppCompatActivity {
                 return;
             }
 
-            String selectedSize = sizeSpinner.getSelectedItem().toString();
-            CartItem cartItem = new CartItem(
-                    currentShoe,
-                    selectedSize,
-                    selectedColor
-            );
+            double selectedSize = Double.parseDouble(sizeSpinner.getSelectedItem().toString());
+            CartItem cartItem = new CartItem(currentShoe, selectedSize, selectedColor);
 
             Cart.getInstance().addItem(cartItem);
             Toast.makeText(this, "Added to cart", Toast.LENGTH_SHORT).show();

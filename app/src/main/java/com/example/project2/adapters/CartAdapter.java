@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project2.R;
 import com.example.project2.models.CartItem;
-import com.example.project2.models.Shoe;
 import com.example.project2.utils.ImageUtil;
 
 import java.util.List;
@@ -37,9 +36,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     @Override
     public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
         CartItem cartItem = cartItemList.get(position);
-        holder.shoeName.setText(cartItem.getName());
-        holder.shoePrice.setText("$" + cartItem.getPrice());
-        holder.shoeSize.setText("Size: " + cartItem.getShoeSize());
+
+        // שימוש במתודות של CartItem
+        holder.shoeName.setText(cartItem.getShoeName());
+        holder.shoePrice.setText("$" + cartItem.getShoePrice());
+        holder.shoeSize.setText("Size: " + cartItem.getSize());
         holder.shoeImage.setImageBitmap(ImageUtil.convertFrom64base(cartItem.getShoeImageBase64()));
     }
 
@@ -54,7 +55,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
         public CartViewHolder(@NonNull View itemView) {
             super(itemView);
-            shoeImage = itemView.findViewById(R.id.cart);
+            shoeImage = itemView.findViewById(R.id.cart_item_image);
             shoeName = itemView.findViewById(R.id.cart_item_name);
             shoePrice = itemView.findViewById(R.id.cart_item_price);
             shoeSize = itemView.findViewById(R.id.cart_item_size);

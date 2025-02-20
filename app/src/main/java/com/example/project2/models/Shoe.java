@@ -1,7 +1,6 @@
 package com.example.project2.models;
 
 import java.util.List;
-import java.util.Map;
 
 public class Shoe {
 
@@ -13,7 +12,6 @@ public class Shoe {
 
     public Shoe() {
     }
-
 
     public Shoe(String id, String name, double price, String gender, List<ShoeColor> colorOptions) {
         this.id = id;

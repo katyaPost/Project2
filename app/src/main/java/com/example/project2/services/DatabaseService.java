@@ -165,6 +165,8 @@ public class DatabaseService {
     }
 
 
+
+
     /// get a user from the database
     /// @param uid the id of the user to get
     /// @param callback the callback to call when the operation is completed
