@@ -1,5 +1,6 @@
 package com.example.project2.screens;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,6 +22,7 @@ import com.example.project2.models.Shoe;
 import com.example.project2.models.ShoeColor;
 import com.example.project2.services.DatabaseService;
 import com.example.project2.utils.ImageUtil;
+import com.google.gson.Gson;
 
 import java.util.Arrays;
 import java.util.List;
@@ -50,6 +52,7 @@ public class ShoeDetails extends AppCompatActivity {
         TextView shoeName = findViewById(R.id.shoe_detail_name);
         TextView shoePrice = findViewById(R.id.shoe_detail_price);
         colorsRecyclerView = findViewById(R.id.additional_colors_recyclerview);
+        colorsRecyclerView.setLayoutManager(new LinearLayoutManager(ShoeDetails.this, LinearLayoutManager.HORIZONTAL, false));
         sizeSpinner = findViewById(R.id.shoe_size_spinner);
         addToCartButton = findViewById(R.id.add_to_cart_button);
 
@@ -76,7 +79,6 @@ public class ShoeDetails extends AppCompatActivity {
                     shoeImage.setImageBitmap(ImageUtil.convertFrom64base(shoeColor.getPicBase64()));
                 });
 
-                colorsRecyclerView.setLayoutManager(new LinearLayoutManager(ShoeDetails.this, LinearLayoutManager.HORIZONTAL, false));
                 colorsRecyclerView.setAdapter(colorsAdapter);
             }
 
@@ -119,8 +121,26 @@ public class ShoeDetails extends AppCompatActivity {
             double selectedSize = Double.parseDouble(sizeSpinner.getSelectedItem().toString());
             CartItem cartItem = new CartItem(currentShoe, selectedSize, selectedColor);
 
+            // הוספת פריט לסל
             Cart.getInstance().addItem(cartItem);
+
+            // שמירת הסל ב-SharedPreferences
+            saveCartToPreferences();
+
             Toast.makeText(this, "Added to cart", Toast.LENGTH_SHORT).show();
         });
+    }
+
+    private void saveCartToPreferences() {
+        SharedPreferences sharedPreferences = getSharedPreferences("cart_prefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        // המרת הסל לרשימה של JSON בעזרת Gson
+        Gson gson = new Gson();
+        String cartJson = gson.toJson(Cart.getInstance().getItems());
+
+        // שמירה ב-SharedPreferences
+        editor.putString("cart_items", cartJson);
+        editor.apply();
     }
 }

@@ -48,8 +48,8 @@ public class ShoeColorAdapter extends RecyclerView.Adapter<ShoeColorAdapter.View
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            colorNameTextView = itemView.findViewById(R.id.colorNameTextView);
-            colorImageView = itemView.findViewById(R.id.colorimageView);
+            colorNameTextView = itemView.findViewById(R.id.color_name_text_view_2);
+            colorImageView = itemView.findViewById(R.id.color_image_view_2);
         }
     }
 }

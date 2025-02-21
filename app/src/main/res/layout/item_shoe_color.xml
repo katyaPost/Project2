@@ -4,18 +4,40 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="8dp"
     android:background="?android:attr/selectableItemBackground">
 
     <ImageView
-        android:id="@+id/colorimageView"
+        android:id="@+id/color_image_view"
         android:layout_width="100dp"
         android:layout_height="100dp"
         tools:srcCompat="@tools:sample/avatars" />
 
-    <TextView
-        android:id="@+id/colorNameTextView"
+    <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="2dp"
+        android:paddingEnd="2dp"
+        android:background="?android:attr/selectableItemBackground">
+
+        <ImageView
+            android:id="@+id/color_image_view_2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/color_name_text_view_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:text="@tools:sample/first_names" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/color_name_text_view"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:textStyle="bold"
