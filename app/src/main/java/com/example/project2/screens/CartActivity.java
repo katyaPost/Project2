@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.project2.R;
 import com.example.project2.adapters.CartAdapter;
 import com.example.project2.models.Cart;
 import com.example.project2.models.CartItem;
