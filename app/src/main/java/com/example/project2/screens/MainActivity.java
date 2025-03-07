@@ -12,6 +12,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.project2.R;
+import com.example.project2.services.AuthenticationService;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     Button btnSignup, btnLogin;
@@ -23,6 +24,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
+        if (AuthenticationService.getInstance().isUserSignedIn()) {
+            Intent intent = new Intent(this, ShoesActivity.class);
+            startActivity(intent);
+            finish();
+            return;
+        }
 
          initviews();
     }

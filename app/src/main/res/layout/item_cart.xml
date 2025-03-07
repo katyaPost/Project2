@@ -11,34 +11,42 @@
         android:id="@+id/cart_item_image"
         android:layout_width="157dp"
         android:layout_height="137dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="19dp"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <TextView
         android:id="@+id/cart_item_name"
-        android:layout_width="106dp"
-        android:layout_height="28dp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="189dp"
-        tools:layout_editor_absoluteY="19dp" />
+        android:layout_width="114dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@+id/cart_item_image"
+        app:layout_constraintTop_toTopOf="@+id/cart_item_image"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/cart_item_price"
-        android:layout_width="87dp"
-        android:layout_height="0dp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="189dp"
-        tools:layout_editor_absoluteY="59dp" />
+        android:layout_width="98dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/cart_item_name"
+        app:layout_constraintTop_toBottomOf="@+id/cart_item_name"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/cart_item_size"
         android:layout_width="91dp"
         android:layout_height="23dp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="189dp"
-        tools:layout_editor_absoluteY="88dp" />
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/cart_item_price"
+        app:layout_constraintTop_toBottomOf="@+id/cart_item_price"
+        tools:ignore="MissingConstraints" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,11 +16,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:layout_marginBottom="20dp"
         android:gravity="center"
         android:text="Shoes Store"
         android:textColor="@color/black"
         android:textSize="25dp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/btn_to_add_shoe"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.463"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,17 +35,23 @@
         android:padding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.571"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_to_add_shoe"
+        app:layout_constraintVertical_bias="1.0"
         tools:listitem="@layout/item_shoe" />
 
     <Button
         android:id="@+id/btn_to_add_shoe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:backgroundTint="#2A3663"
         android:text="ADD SHOE"
+        app:layout_constraintBottom_toTopOf="@+id/shoesRecyclerView"
         app:layout_constraintEnd_toEndOf="@+id/shoesTitle"
+        app:layout_constraintHorizontal_bias="0.952"
         app:layout_constraintStart_toStartOf="@+id/shoesTitle"
         app:layout_constraintTop_toBottomOf="@+id/shoesTitle" />
 

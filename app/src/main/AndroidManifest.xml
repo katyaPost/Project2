@@ -16,16 +16,13 @@
             android:name=".item_cart"
             android:exported="false" />
         <activity
-            android:name=".screens.AddShoeImageActivity"
-            android:exported="false" />
-        <activity
             android:name=".screens.AddShoeActivity"
             android:exported="false" />
         <activity
             android:name=".screens.CartActivity"
             android:exported="false" /> <!-- משנה את הפעולה הראשונה שתיפתח לאפליקציה -->
         <activity
-            android:name=".screens.ShoesActivity"
+            android:name=".screens.MainActivity"
             android:exported="true"> <!-- כעת זה הפעולה הראשית -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,7 +40,7 @@
             android:name=".screens.Register"
             android:exported="false" />
         <activity
-            android:name=".screens.MainActivity"
+            android:name=".screens.ShoesActivity"
             android:exported="false" />
     </application>
 

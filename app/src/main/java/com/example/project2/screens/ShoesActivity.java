@@ -30,7 +30,6 @@ public class ShoesActivity extends AppCompatActivity implements View.OnClickList
     private List<Shoe> shoesList = new ArrayList<>();
     private DatabaseService databaseService;
 
-    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project2.R;
+import com.example.project2.models.Cart;
 import com.example.project2.models.CartItem;
 import com.example.project2.utils.ImageUtil;
 import com.example.project2.utils.SharedPreferencesUtil;
@@ -46,6 +47,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         holder.shoePrice.setText("$" + cartItem.getShoePrice());
         holder.shoeSize.setText("Size: " + cartItem.getSize());
         holder.shoeImage.setImageBitmap(ImageUtil.convertFrom64base(cartItem.getShoeImageBase64()));
+
     }
 
     @Override
@@ -53,7 +55,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         return cartItemList.size();
     }
 
-    public void setItems(List<CartItem> items) {
+    public void setItems(@NonNull List<CartItem> items) {
         this.cartItemList.clear();
         this.cartItemList.addAll(items);
         this.notifyDataSetChanged();
@@ -61,25 +63,22 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
     // שמירה של פריטי הסל ב-SharedPreferences
     public void saveCartToPreferences() {
-        SharedPreferencesUtil sharedPreferences = context.getSharedPreferences("cart_prefs", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        Gson gson = new Gson();
-        String cartJson = gson.toJson(cartItemList);
-        editor.putString("cart_items", cartJson);
-        editor.apply();
+        SharedPreferencesUtil.saveCart(this.context, cartItemList);
     }
 
     // טעינת פריטי הסל מ-SharedPreferences
     public void loadCartFromPreferences() {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("cart_prefs", Context.MODE_PRIVATE);
-        String cartJson = sharedPreferences.getString("cart_items", "[]");
+        List<CartItem> cartItems = SharedPreferencesUtil.loadCart(this.context);
+        setItems(cartItems);
+    }
 
-        Gson gson = new Gson();
-        List<CartItem> cartItems = gson.fromJson(cartJson, List.class);
-
-        if (cartItems != null) {
-            setItems(cartItems);
+    public void removeItem(int position) {
+        if (position < 0 || position >= cartItemList.size()) {
+            return;
         }
+        cartItemList.remove(position);
+        notifyItemRemoved(position);
+        saveCartToPreferences(); // Save the updated cart
     }
 
     public static class CartViewHolder extends RecyclerView.ViewHolder {

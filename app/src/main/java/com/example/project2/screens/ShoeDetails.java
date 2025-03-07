@@ -22,6 +22,7 @@ import com.example.project2.models.Shoe;
 import com.example.project2.models.ShoeColor;
 import com.example.project2.services.DatabaseService;
 import com.example.project2.utils.ImageUtil;
+import com.example.project2.utils.SharedPreferencesUtil;
 import com.google.gson.Gson;
 
 import java.util.Arrays;
@@ -93,7 +94,7 @@ public class ShoeDetails extends AppCompatActivity {
     }
 
     private void setupSizeSpinner() {
-        List<String> sizes = Arrays.asList("Select Size", "35", "36", "37", "38", "39", "40", "41", "42", "43");
+        List<String> sizes = Arrays.asList("Select Size", "35", "36","36.5", "37", "38","38.5", "39", "40","40.5", "41", "42","42.5", "43","44","44.5","45");
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, sizes);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -121,26 +122,10 @@ public class ShoeDetails extends AppCompatActivity {
             double selectedSize = Double.parseDouble(sizeSpinner.getSelectedItem().toString());
             CartItem cartItem = new CartItem(currentShoe, selectedSize, selectedColor);
 
-            // הוספת פריט לסל
-            Cart.getInstance().addItem(cartItem);
-
-            // שמירת הסל ב-SharedPreferences
-            saveCartToPreferences();
+            SharedPreferencesUtil.AddToCart(this, cartItem);
 
             Toast.makeText(this, "Added to cart", Toast.LENGTH_SHORT).show();
         });
     }
 
-    private void saveCartToPreferences() {
-        SharedPreferences sharedPreferences = getSharedPreferences("cart_prefs", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        // המרת הסל לרשימה של JSON בעזרת Gson
-        Gson gson = new Gson();
-        String cartJson = gson.toJson(Cart.getInstance().getItems());
-
-        // שמירה ב-SharedPreferences
-        editor.putString("cart_items", cartJson);
-        editor.apply();
-    }
 }
