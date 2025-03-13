@@ -34,7 +34,7 @@ public class ShoeColor {
     public String toString() {
         return "ShoeColor{" +
                 "colorName='" + colorName + '\'' +
-                ", picBase64='" + picBase64 + '\'' +
+                ", picBase64='" + "HELP" + '\'' +
                 '}';
     }
 }

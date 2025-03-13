@@ -17,19 +17,13 @@ import com.example.project2.services.AuthenticationService;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     Button btnSignup, btnLogin;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        if (AuthenticationService.getInstance().isUserSignedIn()) {
-            Intent intent = new Intent(this, ShoesActivity.class);
-            startActivity(intent);
-            finish();
-            return;
-        }
+
 
          initviews();
     }

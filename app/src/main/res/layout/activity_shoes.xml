@@ -4,71 +4,91 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#BCCCDC"
+    android:background="@color/white"
     tools:context=".screens.ShoesActivity">
 
     <!-- כותרת למסך -->
-
-    <!-- RecyclerView עבור הצגת הנעליים -->
 
     <TextView
         android:id="@+id/shoesTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:layout_marginBottom="20dp"
+        android:fontFamily="sans-serif-condensed"
         android:gravity="center"
         android:text="Shoes Store"
         android:textColor="@color/black"
-        android:textSize="25dp"
+        android:textSize="40sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/btn_to_add_shoe"
+        app:layout_constraintBottom_toTopOf="@+id/shoesRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.463"
+        app:layout_constraintHorizontal_bias="0.41"
+        app:layout_constraintStart_toEndOf="@+id/btn_to_add_shoe"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.076" />
+
+    <ImageButton
+        android:id="@+id/btn_to_add_shoe"
+        android:layout_width="54dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="27dp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:src="@drawable/add"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/shoesRecyclerView"
+        app:layout_constraintEnd_toStartOf="@+id/user_btn"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.181" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/shoesRecyclerView"
-        android:layout_width="418dp"
-        android:layout_height="586dp"
-        android:padding="8dp"
+        android:layout_width="424dp"
+        android:layout_height="632dp"
+        android:layout_marginTop="27dp"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.571"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_to_add_shoe"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintTop_toBottomOf="@+id/cart_button"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="-7dp"
         tools:listitem="@layout/item_shoe" />
-
-    <Button
-        android:id="@+id/btn_to_add_shoe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:backgroundTint="#2A3663"
-        android:text="ADD SHOE"
-        app:layout_constraintBottom_toTopOf="@+id/shoesRecyclerView"
-        app:layout_constraintEnd_toEndOf="@+id/shoesTitle"
-        app:layout_constraintHorizontal_bias="0.952"
-        app:layout_constraintStart_toStartOf="@+id/shoesTitle"
-        app:layout_constraintTop_toBottomOf="@+id/shoesTitle" />
 
     <ImageButton
         android:id="@+id/cart_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/shopping_cart"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="Shopping Cart"
+        android:layout_width="55dp"
+        android:layout_height="57dp"
         android:layout_margin="16dp"
+        android:layout_marginStart="61dp"
+        android:layout_marginTop="32dp"
+        android:contentDescription="Shopping Cart"
+        android:elevation="4dp"
+        android:src="@drawable/shopping_cart"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/shoesTitle"
+        app:layout_constraintTop_toTopOf="parent" />
 
-
-
-
-
+    <ImageView
+        android:id="@+id/user_btn"
+        android:layout_width="48dp"
+        android:layout_height="55dp"
+        android:layout_margin="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginBottom="37dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="User Profile"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toTopOf="@+id/shoesRecyclerView"
+        app:layout_constraintStart_toEndOf="@+id/btn_to_add_shoe"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/user" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

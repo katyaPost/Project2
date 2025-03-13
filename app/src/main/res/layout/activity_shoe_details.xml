@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFE3E3"
-    android:padding="16dp"
+    android:background="#FFFFFF"
+    android:padding="20dp"
     tools:context=".screens.ShoeDetails">
 
     <!-- תמונה של הנעל -->
@@ -17,89 +17,88 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:contentDescription="Shoe Image" />
+        android:contentDescription="Shoe Image"
+        android:layout_marginBottom="16dp"/>
 
     <!-- שם הנעל -->
     <TextView
         android:id="@+id/shoe_detail_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
+        android:textSize="26sp"
         android:textStyle="bold"
         android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@id/shoe_detail_image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
-        android:gravity="center" />
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:text="Shoe Name" /> <!-- שם לדוגמה -->
 
     <!-- מחיר הנעל -->
     <TextView
         android:id="@+id/shoe_detail_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:background="@android:color/darker_gray"
+        android:textSize="20sp"
         app:layout_constraintTop_toBottomOf="@id/shoe_detail_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp"
-        android:gravity="center" />
+        android:gravity="center"
+        android:text="Price: $99.99" /> <!-- מחיר לדוגמה -->
 
     <!-- רשימת הצבעים הנוספים -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/additional_colors_recyclerview"
         android:layout_width="0dp"
         android:layout_height="100dp"
-        android:layout_marginStart="2dp"
         android:layout_marginTop="16dp"
+        android:layout_marginStart="2dp"
         android:layout_marginEnd="2dp"
         android:clipChildren="false"
         android:clipToPadding="false"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/shoe_detail_price"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         tools:listitem="@layout/item_color" />
-
 
     <!-- Spinner -->
     <Spinner
         android:id="@+id/shoe_size_spinner"
         android:layout_width="0dp"
-        android:layout_height="22dp"
+        android:layout_height="40dp"
         android:layout_marginTop="16dp"
-        android:background="@android:color/white"
-        android:importantForAccessibility="yes"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/additional_colors_recyclerview" />
 
     <!-- כפתור "הוסף לעגלה" -->
-
-    <!-- תצוגת מספר הפריטים בעגלה -->
     <Button
         android:id="@+id/add_to_cart_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:backgroundTint="@color/black"
+        android:fontFamily="sans-serif-condensed"
         android:text="Add to Cart"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        android:backgroundTint="#FF5722"
+        android:textColor="@android:color/white"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/shoe_size_spinner" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/shoe_size_spinner"
+        android:layout_marginBottom="12dp" />
 
+    <!-- תצוגת מספר הפריטים בעגלה -->
     <TextView
         android:id="@+id/cart_item_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cart: 0"
         android:textSize="16sp"
-        android:textColor="@android:color/black"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@id/add_to_cart_button"
-        android:layout_marginTop="8dp"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
