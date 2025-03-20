@@ -15,6 +15,9 @@ import android.widget.Toast;
 
 import com.example.project2.R;
 import com.example.project2.models.User;
+import com.example.project2.services.AuthenticationService;
+import com.example.project2.services.DatabaseService;
+import com.example.project2.utils.SharedPreferencesUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -26,30 +29,21 @@ import com.google.firebase.database.FirebaseDatabase;
 public class Register extends AppCompatActivity implements View.OnClickListener {
     EditText etFName, etLName, etPhone, etEmail, etPass;
     Button btnReg;
-    boolean isValid;
-
 
     String fName, lName, phone, email, pass;
-    private FirebaseAuth mAuth;
-    private FirebaseDatabase database;
-    private DatabaseReference myRef;
-    public static final String MyPREFERENCES = "MyPrefs";
-    SharedPreferences sharedpreferences;
+
+    AuthenticationService authenticationService;
+    DatabaseService databaseService;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         init_views();
 
-
-        // Write a message to the database
-        database = FirebaseDatabase.getInstance();
-        myRef = database.getReference("Users");
-
-        mAuth = FirebaseAuth.getInstance();
-
+        authenticationService = AuthenticationService.getInstance();
+        databaseService = DatabaseService.getInstance();
     }
 
     private void init_views() {
@@ -73,7 +67,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
 
 
         //check if registration is valid
-        Boolean isValid = true;
+        boolean isValid = true;
         if (fName.length() < 2) {
             etFName.setError("שם פרטי קצר מדי");
             isValid = false;
@@ -100,40 +94,38 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
             isValid = false;
         }
 
-
-        if (isValid == true) {
-            mAuth.createUserWithEmailAndPassword(email, pass)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.d("TAG", "createUserWithEmail:success");
-                                FirebaseUser fireuser = mAuth.getCurrentUser();
-                                User newUser = new User(fireuser.getUid(), fName, lName, phone, email, pass);
-                                myRef.child(fireuser.getUid()).setValue(newUser);
-                                SharedPreferences.Editor editor = sharedpreferences.edit();
-
-                                editor.putString("email", email);
-                                editor.putString("password", pass);
-
-                                editor.commit();
-                                Intent goLog = new Intent(getApplicationContext(), LogIn.class);
-                                startActivity(goLog);
-
-
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Log.w("TAG", "createUserWithEmail:failure", task.getException());
-                                Toast.makeText(Register.this, "Authentication failed.",
-                                        Toast.LENGTH_SHORT).show();
-
-                            }
-
-                            // ...
-                        }
-                    });
+        if (!isValid) {
+            return;
         }
+
+        authenticationService.signUp(email, pass, new AuthenticationService.AuthCallback<String>() {
+            @Override
+            public void onCompleted(String uid) {
+                User newUser = new User(uid, fName, lName, phone, email, pass);
+                databaseService.createNewUser(newUser, new DatabaseService.DatabaseCallback<Void>() {
+                    @Override
+                    public void onCompleted(Void object) {
+                        SharedPreferencesUtil.saveUser(Register.this, newUser);
+                        Intent goLog = new Intent(getApplicationContext(), ShoesActivity.class);
+                        startActivity(goLog);
+                    }
+
+                    @Override
+                    public void onFailed(Exception e) {
+                        Log.w("TAG", "createNewUser:failure", e);
+                        Toast.makeText(Register.this, "Authentication failed.",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                Log.w("TAG", "createUserWithEmail:failure", e);
+                Toast.makeText(Register.this, "Authentication failed.",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
 

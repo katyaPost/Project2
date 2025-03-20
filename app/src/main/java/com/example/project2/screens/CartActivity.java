@@ -46,7 +46,6 @@ public class CartActivity extends AppCompatActivity {
 
     public void enableSwipeToDelete(RecyclerView recyclerView, CartAdapter adapter) {
         ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
-            // TODO replace icon
             private final Drawable deleteIcon = ContextCompat.getDrawable(recyclerView.getContext(), R.drawable.delete_icon);
             private final ColorDrawable background = new ColorDrawable(Color.RED);
 

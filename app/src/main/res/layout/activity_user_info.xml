@@ -28,98 +28,73 @@
         android:layout_marginBottom="16dp"/>
 
     <!-- שם פרטי -->
-    <TextView
-        android:id="@+id/userName"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="שם: "
-        android:textSize="18sp"
-        android:textColor="#555555"
-        android:gravity="end"
-        android:padding="8dp"
-        android:background="@android:color/white"/>
+        android:hint="שם פרטי">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#CCCCCC"/>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tvet_user_first_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <!-- שם משפחה -->
-    <TextView
-        android:id="@+id/userLastName"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="שם משפחה: "
-        android:textSize="18sp"
-        android:textColor="#555555"
-        android:gravity="end"
-        android:padding="8dp"
-        android:background="@android:color/white"/>
+        android:hint="שם משפחה">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#CCCCCC"/>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tvet_user_last_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <!-- אימייל -->
-    <TextView
-        android:id="@+id/userEmail"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="אימייל: "
-        android:textSize="18sp"
-        android:textColor="#555555"
-        android:gravity="end"
-        android:padding="8dp"
-        android:background="@android:color/white"/>
+        android:hint="אימייל">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#CCCCCC"/>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tvet_user_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <!-- סיסמה -->
-    <TextView
-        android:id="@+id/userPassword"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="סיסמה: ******"
-        android:textSize="18sp"
-        android:textColor="#555555"
-        android:gravity="end"
-        android:padding="8dp"
-        android:background="@android:color/white"/>
+        android:hint="סיסמה"
+        app:passwordToggleEnabled="true">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#CCCCCC"
-        android:layout_marginBottom="24dp"/>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tvet_user_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <!-- כפתור התנתקות -->
     <ImageButton
         android:id="@+id/logoutButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="🚪 התנתקות"
-        android:textSize="18sp"
-        android:textStyle="bold"
         android:padding="12dp"
-        android:background="@drawable/logout"
-        android:textColor="@android:color/white"/>
+        android:background="@drawable/logout"/>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textField"
-        android:layout_width="match_parent"
+    <ImageButton
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="First Name">
+        android:src="@android:drawable/ic_menu_save"
+        android:contentDescription="Save Changes"
+        android:layout_marginTop="16dp"/>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tvet_user_first_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-
-    </com.google.android.material.textfield.TextInputLayout>
 
 </LinearLayout>

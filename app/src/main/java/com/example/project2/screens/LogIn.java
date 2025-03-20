@@ -15,11 +15,17 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.project2.R;
+import com.example.project2.models.User;
+import com.example.project2.services.AuthenticationService;
+import com.example.project2.services.DatabaseService;
+import com.example.project2.utils.SharedPreferencesUtil;
 
 public class LogIn extends AppCompatActivity implements View.OnClickListener {
     EditText etEmail, etPassword;
     Button btnLog;
     String email, pass;
+    AuthenticationService authenticationService;
+    DatabaseService databaseService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +37,8 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        authenticationService = AuthenticationService.getInstance();
+        databaseService = DatabaseService.getInstance();
         initviews();
     }
 
@@ -52,15 +60,32 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
             return;
         }
 
-        // כאן תוכל להוסיף את הקוד כדי לבדוק את הנתונים עם מערכת אחרת (כגון שרת)
-        // לדוגמה, אם המייל והסיסמה נכונים, נעבור למסך הבא
-        if (email.equals("user@example.com") && pass.equals("password123")) {
-            Log.d("TAG", "Login success");
-            Intent go = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(go);
-        } else {
-            Log.w("TAG", "Login failed");
-            Toast.makeText(getApplicationContext(), "Authentication failed.", Toast.LENGTH_SHORT).show();
-        }
+        authenticationService.signIn(email, pass, new AuthenticationService.AuthCallback<String>() {
+            @Override
+            public void onCompleted(String uid) {
+                databaseService.getUser(uid, new DatabaseService.DatabaseCallback<User>() {
+                    @Override
+                    public void onCompleted(User user) {
+                        SharedPreferencesUtil.saveUser(LogIn.this, user);
+                        Intent go = new Intent(LogIn.this, ShoesActivity.class);
+                        startActivity(go);
+                    }
+
+                    @Override
+                    public void onFailed(Exception e) {
+                        Log.w("TAG", "Login failed: " + e.toString());
+                        Toast.makeText(getApplicationContext(), "Authentication failed.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                Log.w("TAG", "Login failed: " + e.toString());
+                Toast.makeText(getApplicationContext(), "Authentication failed.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
     }
 }

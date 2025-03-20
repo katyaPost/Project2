@@ -9,6 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.example.project2.models.CartItem;
+import com.example.project2.models.User;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -21,6 +22,22 @@ public class SharedPreferencesUtil {
 
     private static final String PREF_NAME = "com.example.project2.PREFERENCE_FILE_KEY";
     private static final String CART_KEY = "cart_data";
+    private static final String USER_KEY = "user_data";
+
+    public static void saveUser(Context context, User user) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson=new Gson();
+        editor.putString(USER_KEY, gson.toJson(user));
+        editor.apply();
+    }
+
+    public static User getUser(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        String userJsonString = sharedPreferences.getString(USER_KEY, null);
+        Gson gson=new Gson();
+        return gson.fromJson(userJsonString, User.class);
+    }
 
     public static void saveCart(Context context, List<CartItem> cartItems) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);

@@ -91,4 +91,5 @@ public class ShoesActivity extends AppCompatActivity implements View.OnClickList
             startActivity(intent);
         }
     }
+
 }
