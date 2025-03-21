@@ -114,6 +114,22 @@ public class DatabaseService {
         });
     }
 
+    /// remove data from the database at a specific path
+    /// @param path the path to remove the data from
+    /// @param callback the callback to call when the operation is completed
+    /// @see DatabaseCallback
+    private void deleteData(@NotNull final String path, @Nullable final DatabaseCallback<Void> callback) {
+        readData(path).removeValue((error, ref) -> {
+            if (error != null) {
+                if (callback == null) return;
+                callback.onFailed(error.toException());
+            } else {
+                if (callback == null) return;
+                callback.onCompleted(null);
+            }
+        });
+    }
+
     /// generate a new id for a new object in the database
     /// @param path the path to generate the id for
     /// @return a new id for the object
@@ -136,7 +152,7 @@ public class DatabaseService {
     /// @return void
     /// @see DatabaseCallback
     /// @see User
-    public void createNewUser(@NotNull final User user, @Nullable final DatabaseCallback<Void> callback) {
+    public void writeUser(@NotNull final User user, @Nullable final DatabaseCallback<Void> callback) {
         writeData("Users/" + user.getId(), user, callback);
     }
 
@@ -177,6 +193,11 @@ public class DatabaseService {
     /// @see User
     public void getUser(@NotNull final String uid, @NotNull final DatabaseCallback<User> callback) {
         getData("Users/" + uid, User.class, callback);
+    }
+
+
+    public void deleteUser(@NotNull final String uid, @NotNull final DatabaseCallback<Void> callback) {
+        deleteData("Users/" + uid, callback);
     }
 
     /// get a Shoe from the database

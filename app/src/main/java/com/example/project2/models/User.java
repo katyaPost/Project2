@@ -1,19 +1,23 @@
 package com.example.project2.models;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     String id;
     String fName,lName, phone, email, password;
+    boolean isAdmin;
 
     public User() {
     }
 
-    public User(String id, String fName, String lName, String phone, String email, String password) {
+    public User(String id, String fName, String lName, String phone, String email, String password, boolean isAdmin) {
         this.id = id;
         this.fName = fName;
         this.lName = lName;
         this.phone = phone;
         this.email = email;
         this.password = password;
+        this.isAdmin = isAdmin;
     }
 
     public String getId() {
@@ -64,6 +68,14 @@ public class User {
         this.password = password;
     }
 
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -73,6 +85,7 @@ public class User {
                 ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", isAdmin=" + isAdmin +
                 '}';
     }
 }

@@ -1,11 +1,6 @@
 package com.example.project2.screens;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,18 +8,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.project2.R;
 import com.example.project2.models.User;
 import com.example.project2.services.AuthenticationService;
 import com.example.project2.services.DatabaseService;
 import com.example.project2.utils.SharedPreferencesUtil;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class Register extends AppCompatActivity implements View.OnClickListener {
     EditText etFName, etLName, etPhone, etEmail, etPass;
@@ -101,8 +91,8 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         authenticationService.signUp(email, pass, new AuthenticationService.AuthCallback<String>() {
             @Override
             public void onCompleted(String uid) {
-                User newUser = new User(uid, fName, lName, phone, email, pass);
-                databaseService.createNewUser(newUser, new DatabaseService.DatabaseCallback<Void>() {
+                User newUser = new User(uid, fName, lName, phone, email, pass, false);
+                databaseService.writeUser(newUser, new DatabaseService.DatabaseCallback<Void>() {
                     @Override
                     public void onCompleted(Void object) {
                         SharedPreferencesUtil.saveUser(Register.this, newUser);

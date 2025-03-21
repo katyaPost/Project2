@@ -82,6 +82,7 @@ public class user_info extends AppCompatActivity {
     }
 
     private void saveUserDetails() {
+        if (this.user == null) return;
         String firstName = tvetUserFirstName.getText().toString();
         String lastName = tvetUserLastName.getText().toString();
         String email = tvetUserEmail.getText().toString();
@@ -89,8 +90,10 @@ public class user_info extends AppCompatActivity {
 
         // עדכון פרטי המשתמש ב-Database
         if (!firstName.isEmpty() && !lastName.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
-            User updatedUser = new User(firstName, lastName, email, password);
-            DatabaseService.getInstance().updateUser(AuthenticationService.getInstance().getCurrentUserId(), updatedUser, new DatabaseService.DatabaseCallback<Void>() {
+            this.user.setfName(firstName);
+            this.user.setlName(lastName);
+//            User updatedUser = new User(firstName, lastName, email, password);
+            DatabaseService.getInstance().writeUser(this.user, new DatabaseService.DatabaseCallback<Void>() {
                 @Override
                 public void onCompleted(Void result) {
                     Toast.makeText(user_info.this, "הפרטים עודכנו בהצלחה", Toast.LENGTH_SHORT).show();
