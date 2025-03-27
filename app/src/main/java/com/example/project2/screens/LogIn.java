@@ -26,6 +26,7 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
     String email, pass;
     AuthenticationService authenticationService;
     DatabaseService databaseService;
+    private User user=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,7 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
         });
         authenticationService = AuthenticationService.getInstance();
         databaseService = DatabaseService.getInstance();
+        user=SharedPreferencesUtil.getUser(LogIn.this);
         initviews();
     }
 
@@ -47,6 +49,12 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
         etPassword = findViewById(R.id.etPassLog);
         btnLog = findViewById(R.id.btnLogin);
         btnLog.setOnClickListener(this);
+        if(user!=null){
+            etEmail.setText(user.getEmail());
+            etPassword.setText(user.getPassword());
+
+
+        }
     }
 
     @Override
