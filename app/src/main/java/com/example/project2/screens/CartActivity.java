@@ -1,5 +1,6 @@
 package com.example.project2.screens;
 
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -37,6 +38,15 @@ public class CartActivity extends AppCompatActivity {
 
         // טעינת הסל מה-SharedPreferences
         loadCartFromPreferences();
+
+        // מעבר לעמוד התשלום
+        findViewById(R.id.checkout_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CartActivity.this, CheckoutActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void loadCartFromPreferences() {
