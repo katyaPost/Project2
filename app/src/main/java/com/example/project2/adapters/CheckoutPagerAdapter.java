@@ -1,11 +1,16 @@
 package com.example.project2.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.project2.R;
 
@@ -18,34 +23,44 @@ public class CheckoutPagerAdapter extends RecyclerView.Adapter<CheckoutPagerAdap
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public int getItemCount() {
+        return 2; // שני שלבים
+    }
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.page_checkout, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        // הגדרת כל עמוד/שלב: שלב 1 (הזנת פרטי כרטיס) ושלב 2 (תשלום מאושר)
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         if (position == 0) {
-            holder.layout.setVisibility(View.VISIBLE);
-            // הגדרת עמוד שלב 1
-        } else {
-            holder.layout.setVisibility(View.VISIBLE);
-            // הגדרת עמוד שלב 2
+            holder.step1Layout.setVisibility(View.VISIBLE);
+            holder.step2Layout.setVisibility(View.GONE);
+
+            holder.nextButton.setOnClickListener(v -> {
+                // מעבר לשלב 2 דרך ViewPager2
+                ViewPager2 viewPager = ((Activity) context).findViewById(R.id.view_pager);
+                viewPager.setCurrentItem(1);
+            });
+
+        } else if (position == 1) {
+            holder.step1Layout.setVisibility(View.GONE);
+            holder.step2Layout.setVisibility(View.VISIBLE);
         }
     }
 
-    @Override
-    public int getItemCount() {
-        return 2; // שני שלבים
-    }
-
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public View layout;
+        LinearLayout step1Layout, step2Layout;
+        Button nextButton;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            layout = itemView;
+            step1Layout = itemView.findViewById(R.id.step_1_layout);
+            step2Layout = itemView.findViewById(R.id.step_2_layout);
+            nextButton = itemView.findViewById(R.id.next_button);
         }
     }
 }

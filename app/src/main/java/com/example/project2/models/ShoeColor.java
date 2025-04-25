@@ -1,9 +1,10 @@
 package com.example.project2.models;
 
-public class ShoeColor {
+import java.io.Serializable;  // ייבוא הממשק Serializable
+
+public class ShoeColor implements Serializable {  // הוספת הממשק Serializable למחלקה ShoeColor
     private String colorName;
     private String picBase64;
-
 
     public ShoeColor() {
     }
@@ -12,7 +13,6 @@ public class ShoeColor {
         this.colorName = colorName;
         this.picBase64 = picBase64;
     }
-
 
     public String getColorName() {
         return colorName;

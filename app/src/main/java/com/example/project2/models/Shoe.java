@@ -1,8 +1,9 @@
 package com.example.project2.models;
 
+import java.io.Serializable;  // ייבוא הממשק Serializable
 import java.util.List;
 
-public class Shoe {
+public class Shoe implements Serializable {  // הוספת הממשק Serializable למחלקה Shoe
 
     private String id;
     private String name;

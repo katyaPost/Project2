@@ -1,33 +1,111 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    tools:context=".screens.CheckoutActivity">
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:gravity="center"
+    android:background="#f4f4f4">
 
-    <!-- שלב 1: הזנת פרטי כרטיס -->
+    <!-- שלב 1: הזנת פרטי אשראי -->
     <LinearLayout
-        android:id="@+id/step_1"
-        android:orientation="vertical"
+        android:id="@+id/step_1_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone">
-
-        <!-- כל השדות של פרטי כרטיס האשראי כאן -->
-        <!-- (הזנת כרטיס, תוקף וכו') -->
-    </LinearLayout>
-
-    <!-- שלב 2: אישור תשלום -->
-    <LinearLayout
-        android:id="@+id/step_2"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/rounded_corner_bg"
+        android:elevation="4dp"
         android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone">
+        android:padding="20dp"
+        tools:visibility="gone">
 
-        <!-- הצגת פרטי ההזמנה ותאריך התשלום -->
+        <!-- מספר כרטיס -->
+        <EditText
+            android:id="@+id/card_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/rounded_corner_bg"
+            android:hint="Card Number"
+            android:inputType="number"
+            android:padding="12dp"
+            android:textColor="#333"
+            android:textSize="16sp" />
+
+        <!-- שם בעל הכרטיס -->
+        <EditText
+            android:id="@+id/cardholder_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/rounded_corner_bg"
+            android:hint="Cardholder Name"
+            android:inputType="textPersonName"
+            android:padding="12dp"
+            android:textColor="#333"
+            android:textSize="16sp" />
+
+        <!-- CVC -->
+        <EditText
+            android:id="@+id/cvc_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/rounded_corner_bg"
+            android:hint="CVC"
+            android:inputType="number"
+            android:padding="12dp"
+            android:textColor="#333"
+            android:textSize="16sp" />
+
+        <!-- תאריך תפוגה -->
+        <EditText
+            android:id="@+id/expiry_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/rounded_corner_bg"
+            android:hint="Expiry Date (MM/YY)"
+            android:inputType="datetime"
+            android:padding="12dp"
+            android:textColor="#333"
+            android:textSize="16sp" />
+
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- שלב 2: הודעת אישור -->
+    <LinearLayout
+        android:id="@+id/step_2_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <TextView
+            android:id="@+id/confirmation_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="Payment Successful!"
+            android:textAlignment="center"
+            android:textColor="@android:color/holo_green_dark"
+            android:textSize="24sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/item_cart">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/next_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Next" />
+
+</LinearLayout>

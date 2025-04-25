@@ -1,7 +1,7 @@
+// CartAdapter.java
 package com.example.project2.adapters;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +12,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project2.R;
-import com.example.project2.models.Cart;
 import com.example.project2.models.CartItem;
 import com.example.project2.utils.ImageUtil;
 import com.example.project2.utils.SharedPreferencesUtil;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,12 +59,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         this.notifyDataSetChanged();
     }
 
-    // שמירה של פריטי הסל ב-SharedPreferences
     public void saveCartToPreferences() {
         SharedPreferencesUtil.saveCart(this.context, cartItemList);
     }
 
-    // טעינת פריטי הסל מ-SharedPreferences
     public void loadCartFromPreferences() {
         List<CartItem> cartItems = SharedPreferencesUtil.loadCart(this.context);
         setItems(cartItems);
