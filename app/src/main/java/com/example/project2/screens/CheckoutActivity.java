@@ -1,12 +1,12 @@
 package com.example.project2.screens;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -32,7 +32,6 @@ public class CheckoutActivity extends AppCompatActivity {
     private TextView totalPriceTextView;
     private CartAdapter cartAdapter;
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,12 +40,12 @@ public class CheckoutActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.view_pager);
         stepIndicator = findViewById(R.id.step_indicator);
 
-        cardInput = findViewById(R.id.card_input);
-        cardholderName = findViewById(R.id.cardholder_name);
-        cvcInput = findViewById(R.id.cvc_input);
-        expiryDateInput = findViewById(R.id.expiry_date);
+//        cardInput = findViewById(R.id.card_input);
+//        cardholderName = findViewById(R.id.cardholder_name);
+//        cvcInput = findViewById(R.id.cvc_input);
+//        expiryDateInput = findViewById(R.id.expiry_date);
 
-        summaryRecyclerView = findViewById(R.id.payment_success_recyclerview);
+        summaryRecyclerView = findViewById(R.id.cart_recyclerview);
         totalPriceTextView = findViewById(R.id.total_price_text_view);
 
         CheckoutPagerAdapter adapter = new CheckoutPagerAdapter(this);
@@ -64,6 +63,7 @@ public class CheckoutActivity extends AppCompatActivity {
             }
         });
 
+        showCartSummary();
         updateStepIndicator();
     }
 
@@ -96,6 +96,7 @@ public class CheckoutActivity extends AppCompatActivity {
     }
 
     private void showCartSummary() {
+        Log.i("!!!!!!!!!!!!!!!!!!!!", "showCartSummary");
         List<CartItem> cartItems = SharedPreferencesUtil.loadCart(this);
         if (cartAdapter == null) {
             cartAdapter = new CartAdapter(this);
@@ -103,6 +104,8 @@ public class CheckoutActivity extends AppCompatActivity {
             summaryRecyclerView.setAdapter(cartAdapter);
         }
         cartAdapter.setItems(cartItems);
+        Log.i("!!!!!!!!!!!!!!!!!!!!", "#######"+cartItems.size());
+
 
         double totalPrice = 0;
         for (CartItem item : cartItems) {
