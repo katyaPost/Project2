@@ -1,21 +1,16 @@
 package com.example.project2.screens;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.project2.R;
 import com.example.project2.adapters.CartAdapter;
-import com.example.project2.adapters.CheckoutPagerAdapter;
 import com.example.project2.models.CartItem;
 import com.example.project2.utils.SharedPreferencesUtil;
 
@@ -23,95 +18,45 @@ import java.util.List;
 
 public class CheckoutActivity extends AppCompatActivity {
 
-    private ViewPager2 viewPager;
-    private int currentStep = 0;
-    private LinearLayout stepIndicator;
-    private EditText cardInput, cardholderName, cvcInput, expiryDateInput;
-
-    private RecyclerView summaryRecyclerView;
+    private RecyclerView cartRecyclerView;
     private TextView totalPriceTextView;
-    private CartAdapter cartAdapter;
+    private Button confirmOrderButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
 
-        viewPager = findViewById(R.id.view_pager);
-        stepIndicator = findViewById(R.id.step_indicator);
-
-//        cardInput = findViewById(R.id.card_input);
-//        cardholderName = findViewById(R.id.cardholder_name);
-//        cvcInput = findViewById(R.id.cvc_input);
-//        expiryDateInput = findViewById(R.id.expiry_date);
-
-        summaryRecyclerView = findViewById(R.id.cart_recyclerview);
+        // אתחול רכיבי UI
+        cartRecyclerView = findViewById(R.id.cart_recyclerview);
         totalPriceTextView = findViewById(R.id.total_price_text_view);
+        confirmOrderButton = findViewById(R.id.confirm_order_button);
 
-        CheckoutPagerAdapter adapter = new CheckoutPagerAdapter(this);
-        viewPager.setAdapter(adapter);
-
-        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                currentStep = position;
-                updateStepIndicator();
-
-                if (currentStep == 1) {
-                    showCartSummary(); // ברגע שעוברים לשלב 2
-                }
-            }
-        });
-
-        showCartSummary();
-        updateStepIndicator();
-    }
-
-    private void updateStepIndicator() {
-        View step1 = findViewById(R.id.circle_step_1);
-        View step2 = findViewById(R.id.circle_step_2);
-
-        step1.setBackgroundResource(currentStep == 0 ? R.drawable.circle_step_active : R.drawable.circle_step_inactive);
-        step2.setBackgroundResource(currentStep == 1 ? R.drawable.circle_step_active : R.drawable.circle_step_inactive);
-    }
-
-    public void onNextClicked(View view) {
-        if (currentStep == 0) {
-            if (isInputValid()) {
-                viewPager.setCurrentItem(1);
-            } else {
-                Toast.makeText(this, "Please fill in all fields.", Toast.LENGTH_SHORT).show();
-            }
-        } else {
-            Toast.makeText(this, "Payment Successful!", Toast.LENGTH_SHORT).show();
-            SharedPreferencesUtil.clearCart(this); // נקה את העגלה אחרי אישור
-        }
-    }
-
-    private boolean isInputValid() {
-        return !cardInput.getText().toString().isEmpty() &&
-                !cardholderName.getText().toString().isEmpty() &&
-                !cvcInput.getText().toString().isEmpty() &&
-                !expiryDateInput.getText().toString().isEmpty();
-    }
-
-    private void showCartSummary() {
-        Log.i("!!!!!!!!!!!!!!!!!!!!", "showCartSummary");
+        // טוען את פריטי העגלה
         List<CartItem> cartItems = SharedPreferencesUtil.loadCart(this);
-        if (cartAdapter == null) {
-            cartAdapter = new CartAdapter(this);
-            summaryRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-            summaryRecyclerView.setAdapter(cartAdapter);
-        }
+
+        // אתחול והגדרת מתאם לעגלה
+        CartAdapter cartAdapter = new CartAdapter(this);
         cartAdapter.setItems(cartItems);
-        Log.i("!!!!!!!!!!!!!!!!!!!!", "#######"+cartItems.size());
+        cartRecyclerView.setAdapter(cartAdapter);
+        cartRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        // חישוב המחיר הכולל
+        double total = cartItems.stream().mapToDouble(CartItem::getShoePrice).sum();
 
-        double totalPrice = 0;
-        for (CartItem item : cartItems) {
-            totalPrice += item.getShoePrice();
-        }
+        // הצגת המחיר הכולל
+        totalPriceTextView.setText("Total Price: ₪" + total);
 
-        totalPriceTextView.setText("Total Price: $" + String.format("%.2f", totalPrice));
+        // מעבר לדף תשלום
+        confirmOrderButton.setOnClickListener(v -> {
+            // יצירת Intent והעברת total_amount
+            Intent intent = new Intent(CheckoutActivity.this, PaymentActivity.class);
+
+            // העברת הסכום הכולל לדף התשלום
+            intent.putExtra("total_amount", total);  // העברת סכום כולל לדף התשלום
+
+            // ביצוע ה-startActivity
+            startActivity(intent);
+        });
     }
 }

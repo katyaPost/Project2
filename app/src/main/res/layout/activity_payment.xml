@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
@@ -16,39 +17,107 @@
         android:textColor="@color/black"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="24dp"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <TextView
-        android:id="@+id/card_holder_text"
+    <!-- שדה מספר כרטיס -->
+    <EditText
+        android:id="@+id/card_input"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Cardholder: "
-        android:textSize="18sp"
+        android:hint="Card Number"
+        android:inputType="number"
         app:layout_constraintTop_toBottomOf="@id/payment_title"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
 
-    <TextView
-        android:id="@+id/date_text"
+    <!-- שם בעל הכרטיס -->
+    <EditText
+        android:id="@+id/cardholder_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Date: "
+        android:hint="Cardholder Name"
+        android:inputType="textPersonName"
+        app:layout_constraintTop_toBottomOf="@id/card_input"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"/>
+
+    <!-- תאריך תפוגה -->
+    <EditText
+        android:id="@+id/expiry_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Expiry Date (MM/YY)"
+        android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@id/cardholder_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"/>
+
+    <!-- קוד CVC -->
+    <EditText
+        android:id="@+id/cvc_input"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="CVC"
+        android:inputType="numberPassword"
+        app:layout_constraintTop_toBottomOf="@id/expiry_date"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"/>
+
+    <!-- תקציר ההזמנה -->
+    <TextView
+        android:id="@+id/cart_summary_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Order Summary: ... (הוסף פרטי הזמנה)"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/cvc_input"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
+    <!-- סכום כולל -->
+    <TextView
+        android:id="@+id/total_amount_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total: ₪0.00"
         android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@id/card_holder_text"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/cart_summary_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="12dp"/>
 
-    <TextView
-        android:id="@+id/amount_text"
+    <!-- רשימת מוצרים בעגלה -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/cart_recyclerview"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Total Amount: "
-        android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@id/date_text"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        android:padding="16dp"
+        app:layout_constraintTop_toBottomOf="@id/total_amount_text"
+        app:layout_constraintBottom_toTopOf="@id/NEXT"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="12dp"/>
+        tools:listitem="@layout/item_cart" />
+
+    <!-- כפתור המשך -->
+    <Button
+        android:id="@+id/NEXT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NEXT"
+        app:layout_constraintTop_toBottomOf="@id/cart_recyclerview"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

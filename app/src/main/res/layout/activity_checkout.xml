@@ -72,7 +72,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="16dp"
-        android:text="Total Price: $0.00"
+        android:text="Total Price: ₪0.00"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/confirm_order_button"
         app:layout_constraintEnd_toEndOf="parent"
@@ -85,11 +85,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:onClick="onNextClicked"
-        android:text="Confirm Order"
+        android:text="NEXT"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.527"
         app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,3 @@
-// CartAdapter.java
 package com.example.project2.adapters;
 
 import android.content.Context;
@@ -24,6 +23,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     private Context context;
     private List<CartItem> cartItemList;
 
+    // קונסטרוקטור המקבל את ה-Context
     public CartAdapter(Context context) {
         this.context = context;
         this.cartItemList = new ArrayList<>();
@@ -40,12 +40,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
         CartItem cartItem = cartItemList.get(position);
 
-        // שימוש במתודות של CartItem
+        // הצגת פרטי המוצר
         holder.shoeName.setText(cartItem.getShoeName());
-        holder.shoePrice.setText("$" + cartItem.getShoePrice());
+        holder.shoePrice.setText("₪" + cartItem.getShoePrice());
         holder.shoeSize.setText("Size: " + cartItem.getSize());
         holder.shoeImage.setImageBitmap(ImageUtil.convertFrom64base(cartItem.getShoeImageBase64()));
-
     }
 
     @Override
@@ -53,30 +52,35 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         return cartItemList.size();
     }
 
+    // עדכון רשימת הפריטים
     public void setItems(@NonNull List<CartItem> items) {
         this.cartItemList.clear();
         this.cartItemList.addAll(items);
         this.notifyDataSetChanged();
     }
 
+    // שמירה של העגלה ב-SharedPreferences
     public void saveCartToPreferences() {
         SharedPreferencesUtil.saveCart(this.context, cartItemList);
     }
 
+    // טעינת פרטי העגלה מ-SharedPreferences
     public void loadCartFromPreferences() {
         List<CartItem> cartItems = SharedPreferencesUtil.loadCart(this.context);
         setItems(cartItems);
     }
 
+    // הסרת פריט מהעגלה
     public void removeItem(int position) {
         if (position < 0 || position >= cartItemList.size()) {
             return;
         }
         cartItemList.remove(position);
         notifyItemRemoved(position);
-        saveCartToPreferences(); // Save the updated cart
+        saveCartToPreferences(); // שמירה של העדכון ב-SharedPreferences
     }
 
+    // מחלקת ViewHolder שמייצגת פריט בעגלה
     public static class CartViewHolder extends RecyclerView.ViewHolder {
         ImageView shoeImage;
         TextView shoeName, shoePrice, shoeSize;
