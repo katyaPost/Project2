@@ -48,7 +48,7 @@ public class CreditCard {
     public boolean processPayment (){
 
         if (charge(amount)) {
-            System.out.println("Payment of $" + amount + " was successful!");
+            System.out.println("Payment of ₪" + amount + " was successful!");
             return true;
         }
         System.out.println("Payment failed.");

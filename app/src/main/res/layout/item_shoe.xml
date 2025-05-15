@@ -46,6 +46,6 @@
         app:layout_constraintStart_toEndOf="@id/shoeImage"
         app:layout_constraintStart_toStartOf="@+id/shoeName"
         app:layout_constraintTop_toBottomOf="@id/shoeName"
-        tools:text="$99.99" /><!-- עדכון טקסט לדוגמה -->
+        tools:text="₪99.99" /><!-- עדכון טקסט לדוגמה -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

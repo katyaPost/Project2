@@ -23,6 +23,6 @@ class Item {
 
     // הדפסת פרטי הפריט
     public void printItemDetails() {
-        System.out.println(name + " - Price: $" + price);
+        System.out.println(name + " - Price: ₪" + price);
     }
 }

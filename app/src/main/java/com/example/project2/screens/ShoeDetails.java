@@ -1,8 +1,7 @@
 package com.example.project2.screens;
 
-import android.content.SharedPreferences;
+import android.content.Intent;
 import android.os.Bundle;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -16,14 +15,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project2.R;
 import com.example.project2.adapters.ColorsAdapter;
-import com.example.project2.models.Cart;
 import com.example.project2.models.CartItem;
 import com.example.project2.models.Shoe;
 import com.example.project2.models.ShoeColor;
 import com.example.project2.services.DatabaseService;
 import com.example.project2.utils.ImageUtil;
 import com.example.project2.utils.SharedPreferencesUtil;
-import com.google.gson.Gson;
 
 import java.util.Arrays;
 import java.util.List;
@@ -53,7 +50,7 @@ public class ShoeDetails extends AppCompatActivity {
         TextView shoeName = findViewById(R.id.shoe_detail_name);
         TextView shoePrice = findViewById(R.id.shoe_detail_price);
         colorsRecyclerView = findViewById(R.id.additional_colors_recyclerview);
-        colorsRecyclerView.setLayoutManager(new LinearLayoutManager(ShoeDetails.this, LinearLayoutManager.HORIZONTAL, false));
+        colorsRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         sizeSpinner = findViewById(R.id.shoe_size_spinner);
         addToCartButton = findViewById(R.id.add_to_cart_button);
 
@@ -63,12 +60,13 @@ public class ShoeDetails extends AppCompatActivity {
             return;
         }
 
+        // טען את פרטי הנעל מהמסד
         databaseService.getShoe(shoeId, new DatabaseService.DatabaseCallback<Shoe>() {
             @Override
             public void onCompleted(Shoe shoe) {
                 currentShoe = shoe;
                 shoeName.setText(shoe.getName());
-                shoePrice.setText("$" + shoe.getPrice());
+                shoePrice.setText("₪" + shoe.getPrice());
 
                 if (!shoe.getColorOptions().isEmpty()) {
                     selectedColor = shoe.getColorOptions().get(0); // צבע ברירת מחדל
@@ -94,7 +92,8 @@ public class ShoeDetails extends AppCompatActivity {
     }
 
     private void setupSizeSpinner() {
-        List<String> sizes = Arrays.asList("Select Size", "35", "36","36.5", "37", "38","38.5", "39", "40","40.5", "41", "42","42.5", "43","44","44.5","45");
+        List<String> sizes = Arrays.asList("Select Size", "35", "36", "36.5", "37", "38", "38.5", "39", "40",
+                "40.5", "41", "42", "42.5", "43", "44", "44.5", "45");
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, sizes);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -124,8 +123,12 @@ public class ShoeDetails extends AppCompatActivity {
 
             SharedPreferencesUtil.AddToCart(this, cartItem);
 
-            Toast.makeText(this, "Added to cart", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "The item was added", Toast.LENGTH_SHORT).show();
+
+            // מעבר ל-ShoesActivity
+            Intent intent = new Intent(ShoeDetails.this, ShoesActivity.class);
+            startActivity(intent);
+            finish(); // לסגור את המסך הנוכחי כדי לא לחזור אליו בלחיצה על Back
         });
     }
-
 }

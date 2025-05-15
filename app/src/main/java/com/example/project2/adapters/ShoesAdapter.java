@@ -41,7 +41,7 @@ public class ShoesAdapter extends RecyclerView.Adapter<ShoesAdapter.ShoeViewHold
         Shoe shoe = shoesList.get(position);
 
         holder.shoeName.setText(shoe.getName());
-        holder.shoePrice.setText("$" + shoe.getPrice());
+        holder.shoePrice.setText("₪" + shoe.getPrice());
         holder.shoeImage.setImageBitmap(ImageUtil.convertFrom64base(shoe.getColorOptions().get(0).getPicBase64()));
 
 //        // לחיצה על פריט הנעל
