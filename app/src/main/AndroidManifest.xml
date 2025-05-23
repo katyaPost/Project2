@@ -6,12 +6,18 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/vans_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/vans_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.Project2"
         tools:targetApi="31">
+        <activity
+            android:name=".screens.ShoesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".screens.AboutActivity"
+            android:exported="false" />
         <activity
             android:name=".screens.PaymentSuccessActivity"
             android:exported="false" />
@@ -20,9 +26,6 @@
             android:exported="false" />
         <activity
             android:name=".screens.PaymentActivity"
-            android:exported="false" />
-        <activity
-            android:name=".screens.UpdateUser"
             android:exported="false" />
         <activity
             android:name=".screens.UserDetailsActivity"
@@ -34,16 +37,13 @@
             android:name=".screens.Admin"
             android:exported="false" />
         <activity
-            android:name=".screens.item_cart"
-            android:exported="false" />
-        <activity
             android:name=".screens.AddShoeActivity"
             android:exported="false" />
         <activity
             android:name=".screens.CartActivity"
             android:exported="false" /> <!-- משנה את הפעולה הראשונה שתיפתח לאפליקציה -->
         <activity
-            android:name=".screens.ShoesActivity"
+            android:name=".screens.Splash"
             android:exported="true"> <!-- כעת זה הפעולה הראשית -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

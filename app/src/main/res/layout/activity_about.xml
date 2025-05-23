@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF4E6"
+    android:padding="24dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/aboutTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="אודות האפליקציה"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:id="@+id/aboutContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="האפליקציה הזו נועדה לניהול משתמשים במערכת.\n\nמאפשרת למנהלים לצפות במשתמשים, למחוק אותם, ולהרחיב פונקציונליות בעתיד.\n\nפותח כחלק מפרויקט אנדרואיד."
+            android:textSize="16sp"
+            android:textColor="#333333" />
+
+    </LinearLayout>
+</ScrollView>
